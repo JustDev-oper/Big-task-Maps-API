@@ -82,6 +82,30 @@ class MyGUIWindow(arcade.Window):
             self.span = f"{s1},{s2}"
             get_image(self.ll, self.span)
             self.Player.update()
+        if key == arcade.key.RIGHT:
+            s1, s2 = map(float, self.ll.split(','))
+            s1 += 5
+            self.ll = f"{s1},{s2}"
+            get_image(self.ll, self.span)
+            self.Player.update()
+        if key == arcade.key.LEFT:
+            s1, s2 = map(float, self.ll.split(','))
+            s1 -= 5
+            self.ll = f"{s1},{s2}"
+            get_image(self.ll, self.span)
+            self.Player.update()
+        if key == arcade.key.UP:
+            s1, s2 = map(float, self.ll.split(','))
+            s2 += 5
+            self.ll = f"{s1},{s2}"
+            get_image(self.ll, self.span)
+            self.Player.update()
+        if key == arcade.key.DOWN:
+            s1, s2 = map(float, self.ll.split(','))
+            s2 -= 5
+            self.ll = f"{s1},{s2}"
+            get_image(self.ll, self.span)
+            self.Player.update()
 
 
 def setup_game(width=800, height=600, title="Background Color"):
