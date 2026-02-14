@@ -31,6 +31,8 @@ class MyGUIWindow(arcade.Window):
         self.Player.height = 300
         self.all_sprites = arcade.SpriteList()
         self.all_sprites.append(self.Player)
+        self.ll = None
+        self.span = None
 
         # UIManager — сердце GUI
         self.manager = UIManager()
@@ -55,14 +57,31 @@ class MyGUIWindow(arcade.Window):
         self.box_layout.add(flat_button)
 
     def on_button_click(self, event):
-        ll, span = geocode_coords(self.input_text.text)
-        get_image(ll, span)
+        self.ll, self.span = geocode_coords(self.input_text.text)
+        get_image(self.ll, self.span)
         self.Player.update()
 
     def on_draw(self):
         self.clear()
         self.all_sprites.draw()
         self.manager.draw()
+
+    def on_key_press(self, key: int, modifiers: int):
+        if key == arcade.key.PAGEUP:
+            s1, s2 = map(float, self.span.split(','))
+            s1 *= 1.05
+            s2 *= 1.05
+            self.span = f"{s1},{s2}"
+            get_image(self.ll, self.span)
+            self.Player.update()
+
+        if key == arcade.key.PAGEDOWN:
+            s1, s2 = map(float, self.span.split(','))
+            s1 /= 1.05
+            s2 /= 1.05
+            self.span = f"{s1},{s2}"
+            get_image(self.ll, self.span)
+            self.Player.update()
 
 
 def setup_game(width=800, height=600, title="Background Color"):
